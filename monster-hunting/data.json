@@ -1,0 +1,359 @@
+{
+  "list":[
+    {
+      "name":"张三",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },
+    {
+      "name":"里斯",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },
+    {
+      "name":"王五",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },
+    {
+      "name":"六六",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },{
+      "name":"wdaa",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },
+    {
+      "name":"西纳省的",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },
+    {
+      "name":"阿萨大",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },
+    {
+      "name":"卡卡是",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },
+    {
+      "name":"啊口水都快",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },
+    {
+      "name":"哦阿瑟东",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },{
+      "name":"卡斯迪克",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    },
+    {
+      "name":"西纳省的",
+      "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png"
+    }
+  ],
+
+  "summary":{
+     "unlock": {
+     "boom":true,
+     "cannon":false
+   },
+     "injury_value":2000,
+      "my_info":{
+    "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+    "uid":123,
+    "my_rank":20,
+    "has_award":true
+  }
+  },
+
+  "personal_center":{
+      "my_task":{
+        "current_hunt_num":2,
+         "has_defeated":false,
+        "injury_value" :1000
+      },
+
+      "my-award" :
+      [
+        {
+          "name":"3h头像边框+1000exp",
+          "source":"一级分身主播奖励",
+          "time":"2018-9-15"
+        },
+
+        {
+          "name":"3h头像边框+1000exp",
+          "source":"二级分身主播奖励",
+          "time":"2018-9-16"
+        }
+
+      ]
+
+  },
+
+  "borad":[
+  {
+    "rank":1,
+    "current_hunt_num":1,
+
+    "host":{
+      "name":"أكثر المحاربين إصابة للوحش",
+      "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+      "uid":1003303,
+      "attck":20005461
+    },
+    "members":[
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1003303
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+         "uid":123
+      }
+
+    ]
+  },
+  {
+      "rank":2,
+      "current_hunt_num":2,
+
+      "host":{
+        "name":"أكثر المحاربين إصابة للوحش",
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1002950,
+        "attck":85412000
+      },
+      "members":[
+        {
+          "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+          "uid":1003303
+        },
+        {
+          "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+          "uid":123
+        },
+        {
+          "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+          "uid":123
+        }
+
+      ]
+    },
+  {
+    "rank":3,
+    "current_hunt_num":3,
+
+    "host":{
+      "name":"أكثر المحاربين إصابة للوحش",
+      "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+      "uid":1002951,
+      "attck":2000
+    },
+    "members":[
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1003303
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      }
+
+    ]
+  },
+  {
+      "rank":4,
+      "current_hunt_num":4,
+
+      "host":{
+        "name":"أكثر المحاربين إصابة للوحش",
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1002952,
+        "attck":2000
+      },
+      "members":[
+        {
+          "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+          "uid":1003303
+        },
+        {
+          "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+          "uid":123
+        },
+        {
+          "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+          "uid":123
+        }
+
+      ]
+  },
+  {
+      "rank":5,
+      "current_hunt_num":5,
+
+      "host":{
+        "name":"أكثر المحاربين إصابة للوحش",
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1002953,
+        "attck":2000
+      },
+      "members":[
+        {
+          "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+          "uid":1003303
+        },
+        {
+          "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+          "uid":123
+        },
+        {
+          "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+          "uid":123
+        }
+
+      ]
+  },
+  {
+    "rank":6,
+    "current_hunt_num":1,
+
+    "host":{
+      "name":"أكثر المحاربين إصابة للوحش",
+      "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+      "uid":1003303,
+      "attck":2000
+    },
+    "members":[
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1003303
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      }
+
+    ]
+  },
+  {
+    "rank":7,
+    "current_hunt_num":2,
+
+    "host":{
+      "name":"أكثر المحاربين إصابة للوحش",
+      "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+      "uid":1002950,
+      "attck":2000
+    },
+    "members":[
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1003303
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      }
+
+    ]
+  },
+  {
+    "rank":8,
+    "current_hunt_num":3,
+
+    "host":{
+      "name":"أكثر المحاربين إصابة للوحش",
+      "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+      "uid":1002951,
+      "attck":2000
+    },
+    "members":[
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1003303
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      }
+
+    ]
+  },
+  {
+    "rank":9,
+    "current_hunt_num":4,
+
+    "host":{
+      "name":"أكثر المحاربين إصابة للوحش",
+      "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+      "uid":1002952,
+      "attck":2000
+    },
+    "members":[
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1003303
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      }
+
+    ]
+  },
+  {
+    "rank":10,
+    "current_hunt_num":5,
+
+    "host":{
+      "name":"أكثر المحاربين إصابة للوحش",
+      "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+      "uid":1002953,
+      "attck":2000
+    },
+    "members":[
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":1003303
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      },
+      {
+        "avatar":"http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
+        "uid":123
+      }
+
+    ]
+  }
+  ],
+
+  "award":{
+    "name":"5 coins"
+  }
+
+
+
+}

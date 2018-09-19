@@ -1,5 +1,6 @@
 <template>
   <div class="gift">
+
     <!--宝剑-->
     <div class="content" v-if="giftNum==1">
       <img class="arms-ico" src="./images/knife2.png" alt="">
@@ -10,11 +11,9 @@
           <div class="right-line"></div>
         </div>
         <p class="color-green">500 <span class="color-orange" dir="rtl" >قيمة الهجوم:</span></p>
-        <p class="color-green">5000EXP <span class="color-orange" dir="rtl">قيمة الخبرة المكتسبة:</span></p>
-        <div>
-          <span dir="rtl" class="color-orange">مواقع الضرب:</span>
-          <span class="color-green" dir="rtl">يدين الوحش</span>
-        </div>
+        <p class="color-green">1000coins <span class="color-orange" dir="rtl" >قيمة الكوينز:</span></p>
+        <p class="color-green">5000 exp<span class="color-orange" dir="rtl">قيمة الخبرة المكتسبة:</span></p>
+
       </div>
     </div>
     <!--弓箭-->
@@ -28,11 +27,9 @@
           <div class="right-line"></div>
         </div>
         <p class="color-green">1 <span class="color-orange" dir="rtl" >قيمة الهجوم:</span></p>
-        <p class="color-green">500EXP <span class="color-orange" dir="rtl">قيمة الخبرة المكتسبة:</span></p>
-        <div>
-          <span dir="rtl" class="color-orange">مواقع الضرب:</span>
-          <span class="color-green" dir="rtl">وسط الوحش</span>
-        </div>
+        <p class="color-green">2 coins<span class="color-orange" dir="rtl" >قيمة الكوينز:</span></p>
+        <p class="color-green">10 exp<span class="color-orange" dir="rtl">قيمة الخبرة المكتسبة:</span></p>
+
       </div>
     </div>
     <!--大炮-->
@@ -40,9 +37,9 @@
 
       <img class="arms-ico" src="./images/cannon2.png" alt="">
       <!--<p v-if="!isDeBlock.cannon">还没解锁哦</p>-->
-      <div class="unknock">
+      <div class="unknock" v-if="isDeBlock<1">
         <p dir="rtl" class="unknock-title">مغلقة</p>
-        <p dir="rtl" class="unknock-text">عندما تصل درجة تدمير الوحش إلى5m حينها يمكن فتح هدية المدفع</p>
+        <p dir="rtl" class="unknock-text">يمكن فتح هدية المدفع عندما تصل درجة تدمير الوحش الى 5 ملايين</p>
       </div>
       <div class="desc-info">
         <div class="info-title">
@@ -50,21 +47,19 @@
           <p class="title-text" dir="rtl">قوس</p>
           <div class="right-line"></div>
         </div>
-        <p class="color-green">1 <span class="color-orange" dir="rtl" >قيمة الهجوم:</span></p>
-        <p class="color-green">500EXP <span class="color-orange" dir="rtl">قيمة الخبرة المكتسبة:</span></p>
-        <div>
-          <span dir="rtl" class="color-orange">مواقع الضرب:</span>
-          <span class="color-green" dir="rtl">قدمين الوحش</span>
-        </div>
+        <p class="color-green">1500 <span class="color-orange" dir="rtl" >قيمة الهجوم:</span></p>
+        <p class="color-green">2500coins <span class="color-orange" dir="rtl" >قيمة الكوينز:</span></p>
+        <p class="color-green">12510 exp<span class="color-orange" dir="rtl">قيمة الخبرة المكتسبة:</span></p>
+
       </div>
 
     </div>
     <!--炸弹-->
     <div class="content" v-if="giftNum==4">
       <img class="arms-ico" src="./images/bomb2.png" alt="">
-      <div class="unknock">
+      <div class="unknock" v-if="isDeBlock!==2">
         <p dir="rtl" class="unknock-title">مغلقة</p>
-        <p dir="rtl" class="unknock-text">عندما تصل درجة تدمير الوحش إلى1.5m حينها يمكن فتح هدية القنبلة</p>
+        <p dir="rtl" class="unknock-text">يمكن فتح هدية القنبلة عندما تصل درجة تدمير الوحش الى 1.5 مليون</p>
       </div>
       <div class="desc-info">
         <div class="info-title">
@@ -73,15 +68,11 @@
           <div class="right-line"></div>
         </div>
         <p class="color-green">1200 <span class="color-orange" dir="rtl" >قيمة الهجوم:</span></p>
-        <p class="color-green">10005EXP <span class="color-orange" dir="rtl">قيمة الخبرة المكتسبة:</span></p>
-        <div>
-          <span dir="rtl" class="color-orange">مواقع الضرب:</span>
-          <span class="color-green" dir="rtl">رأس الوحش</span>
-        </div>
+        <p class="color-green">2000 coins <span class="color-orange" dir="rtl" >قيمة الكوينز:</span></p>
+        <p class="color-green">10005 exp <span class="color-orange" dir="rtl">قيمة الخبرة المكتسبة:</span></p>
       </div>
       <!--<p v-if="!isDeBlock.boom">还没解锁哦</p>-->
     </div>
-
 
   </div>
 
@@ -165,5 +156,4 @@
   .color-orange{
     color: #A24B18;
   }
-
 </style>

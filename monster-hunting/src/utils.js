@@ -195,8 +195,49 @@ var myMixin = {
       });
     },
 
+    /*打怪兽活动接口*/
+
+    /*1，get接口部分*/
+    getSummary(url, myData){
+        const { userId, token } = this.getUrlParams('userId', 'token');
+        const REST_PREFIX = location.hostname == 'www-cdn.loopslive.com' ? '/api/op/mh/' : 'https://api-test.loopslive.com/1.0/op/mh/'
+        const baseUrl = REST_PREFIX;
+
+        const suffixUrl = `?zone=sg&lang=en&token=${token}&uid=${userId}`;
+        //   ?userId=12345678&token=bf6b13bd37ec4173b7b075dc92bf989a&zone=sg
+        // const suffixUrl = `?zone=sa&lang=en&token=bf6b13bd37ec4173b7b075dc92bf989a&uid=1002950`;
+        const myUrl = baseUrl + url + suffixUrl;
+        if(myData){
+          return axios.get(myUrl, {
+            params: {hostId:myData}
+          });
+        }else{
+          return axios.get(myUrl);
+        }
+
+
+
+
+    },
+
+    /*2,post 抽奖*/
+    draw(url,groupId){
+      const { userId, token } = this.getUrlParams('userId', 'token');
+      const REST_PREFIX = location.hostname == 'www-cdn.loopslive.com' ? '/api/op/mh/' : 'https://api-test.loopslive.com/1.0/op/mh/'
+      const baseUrl = REST_PREFIX;
+
+      const suffixUrl = `?zone=sg&lang=en&token=${token}&uid=${userId}`;
+      //   ?userId=12345678&token=bf6b13bd37ec4173b7b075dc92bf989a&zone=sg
+      // const suffixUrl = `?zone=sa&lang=en&token=bf6b13bd37ec4173b7b075dc92bf989a&uid=1002950`;
+      const myUrl = baseUrl + url + suffixUrl;
+        return axios.post(myUrl, {
+          groupId:groupId,
+          uid:userId
+        });
+    },
+
     /*抽奖*/
-    drawGet(url, myData) {
+  /*  drawGet(url, myData) {
       const {userId, token} = this.getUrlParams('userId', 'token');
 
       const REST_PREFIX = location.hostname == 'www-cdn.loopslive.com' ? 'http://34.242.108.194:8011/' : 'http://183.62.254.246:8033/';
@@ -210,7 +251,7 @@ var myMixin = {
         params: myData || {},
         timeout:4000
       });
-    },
+    },*/
 
     //查询接口,根据id查询名字和头像
     bulkQuery(url,data,methodStr = 'post') {
@@ -238,6 +279,9 @@ var myMixin = {
       data: mydata
     })
     },
+
+
+    /*一次查询很多*/
 
 
     /*第三阶段获取数据*/

@@ -21,6 +21,9 @@ Vue.use(msgbox);
 import VueLoading from './plugs/load/index'
 Vue.use(VueLoading);
 
+// import dialog from './plugs/dialog/index'
+// Vue.use(dialog);
+
 /*引入全局过滤器*/
 Vue.filter('clipPic', function (url) {
 
@@ -96,10 +99,10 @@ Vue.directive('longpress', {
 /*拦截请求和相应*/
 axios.interceptors.request.use(config => {
   // element ui Loading方法
-  console.log('拦截请求');
+  // console.log('拦截请求');
 
 
-  console.log(router);
+  // console.log(router);
   Vue.prototype.$loading();
 
   return config
@@ -110,7 +113,7 @@ axios.interceptors.request.use(config => {
 /**/
 axios.interceptors.response.use(data => {
 
-  console.log('拦截响应');
+  // console.log('拦截响应');
   Vue.prototype.$loading.end();
   return data
 }, error => {

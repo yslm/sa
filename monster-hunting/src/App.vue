@@ -21,59 +21,56 @@
     methods: {
       /*根据拼接的参数判断点击来源*/
       getSource(){
-
         var clickSource = this.getUrlParams('source');
-
         switch (clickSource){
           case 'live':
             this._di({
-              page: "familyCompete3-round3",
-              title: "familyCompete3-round3",
-              source:'familyCompete3-round3-live'
+              page: "monster-hunter",
+              title: "monster-hunter",
+              source:'live'
             },14226);
             break;
           case 'banner':
             this._di({
-              page: "familyCompete3-round3",
-              title: "familyCompete3-round3",
-              source:'familyCompete3-round3-banner'
+              page: "monster-hunter",
+              title: "monster-hunter",
+              source:'banner'
             },14226);
             break;
           case 'notification':
             this._di({
-              page: "familyCompete3-round3",
-              title: "familyCompete3-round3",
-              source:'familyCompete3-round3-notification'
+              page: "monster-hunter",
+              title: "monster-hunter",
+              source:'notification'
             },14226);
             break;
           case 'popup':
             this._di({
-              page: "familyCompete3-round3",
-              title: "familyCompete3-round3",
-              source:'familyCompete3-round3-popup'
+              page: "monster-hunter",
+              title: "monster-hunter",
+              source:'popup'
             },14226);
             break;
+          case 'sms':
+            this._di({
+              page: "monster-hunter",
+              title: "monster-hunter",
+              source:'sms'
+            },14226);
           default:
             this._di({
-              page: "familyCompete3-round3",
-              title: "familyCompete3-round3",
-              source:'familyCompete3-round3-banner'
+              page: "monster-hunter",
+              title: "monster-hunter",
+              source:'banner'
             },14226);
         }
-
       }
-
     },
     mounted(){
 
       this.getSource();
     },
-    watch:{
-
-    }
-
   }
-
 </script>
 
 <style lang="scss">

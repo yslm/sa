@@ -3,6 +3,7 @@ import Router from 'vue-router'
 
 import Index from '@/components/index'
 import personal from '@/components/personalCenter.vue'
+// import Swiper from '@/components/testSwiper.vue'
 
 
 Vue.use(Router);
@@ -26,11 +27,13 @@ export default new Router({
         // component:resolve=>require(['@/components/personalCenter.vue'],resolve)
 
       }
-
-
       ]
     }
-
+  /*  {
+      path:'/swiper',
+      name:'swiper',
+      component:Swiper,
+    }*/
 
   ]
 })

@@ -1,15 +1,13 @@
 <template>
 <div class="box-wrap" v-if="show" @touchmove.prevent>
-    <transition name="msgbox">
-
+    <transition>
         <div v-if="show" class="msgbox-container" :class="className">
-         <!--<header>{{title}}</header>-->
           <div class="content-body">
             <span  @click="cancelBtn" class="close-ico"></span>
-
             <div class="tip-content" >
               <p dir="rtl" class="content-title">تهانينا لقد ربحت</p>
-              <p class="content-text" v-if="content">{{content}} <span class="text-coins">coins</span></p>
+              <!--<p class="content-text" v-if="content">{{content}} <span class="text-coins">coins</span></p>-->
+              <p class="content-text" v-if="content">{{content}}</p>
             </div>
             <footer>
               <button v-if="cancel"  @click="cancelBtn" class="btn cancel">{{cancel}}</button>
@@ -32,24 +30,14 @@ export default {
       confirm: "确定",
       cancel: "",
       className: "",
-    };
-  },
-  watch: {
-   /* show(val) {
-      if (val) {
-        if (!this.hasClass(document.body, "pop-mask")) {
-          this.addClass(document.body, "pop-mask");
-        }
-      } else {
-        this.removeClass(document.body, "pop-mask");
-      }
-    }*/
+    }
   },
   beforeMount() {
     //如果已经存在，则阻止出现第二次
     let node = document.querySelector(".msgbox-container");
+//    console.log(node && node.parentNode,'+++++++++');
     if (node && node.parentNode) {
-      node.parentNode.removeChild(node);
+        node.parentNode.removeChild(node);
     }
   },
   methods: {
@@ -58,51 +46,9 @@ export default {
     },
     cancelBtn() {
       this.show = false;
-    },
-    addClass(obj, cls) {
-      var obj_class = obj.className,
-        blank = obj_class != "" ? " " : "";
-      var added = obj_class + blank + cls;
-      obj.className = added;
-    },
-    removeClass(obj, cls) {
-      var obj_class = " " + obj.className + " ";
-      obj_class = obj_class.replace(/(\s+)/gi, " ");
-      var removed = obj_class.replace(" " + cls + " ", " ");
-      removed = removed.replace(/(^\s+)|(\s+$)/g, "");
-      obj.className = removed; //替换原来的 class.
-    },
-    hasClass(obj, cls) {
-      var obj_class = obj.className,
-        obj_class_lst = obj_class.split(/\s+/);
-      var x = 0;
-      for (x in obj_class_lst) {
-        if (obj_class_lst[x] == cls) {
-          return true;
-        }
-      }
-      return false;
-    },
-    ipt(e){
-      this.num=Math.floor(e.target.value);
-      var newCount=String(Math.floor(e.target.value)).replace(/\b(0+)./gi,"").replace(/\./,'');
-      this.num=newCount;
-//      e.target.value=this.num.substr(0,6);
-    /*  console.log(this.num,typeof this.num.toString());
-      console.log(this.num.toString().substr(0, 6));
-
-      var newCount=this.num.toString().replace(/\D(0+)/gi,"").substr(0, 6);
-      console.log(newCount);
-      this.num=this.num.toString().substr(0, 6);*/
-    }
-  },
-  computed:{
-    checkBtn(){
-      if(this.num<=10){
-        return false
-      }
     }
   }
+
 };
 </script>
 <style lang="scss" scoped>
@@ -127,52 +73,32 @@ export default {
   }
 
 }
-.ico-none{
-  width: 0.48rem;
-  height: 0.48rem;
-  margin-bottom:0.18rem;
-}
-.ico-ok{
-  width: 0.48rem;
-  height: 0.48rem;
-  margin-bottom:0.18rem;
-}
 
 .msgbox-container {
   position: absolute;
   width: 3.1rem;
-  /*height:2.2rem;*/
-  /*padding:0.3rem 0;*/
+  height:2.5rem;
   padding-bottom:0.2rem;
-  top: 50%;
-  left: 50%;
-  /*background: #37a125;*/
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin:auto;
   color: #555;
   background-color: #FEDD89;
-  /*border-radius: 0.04rem;*/
-  /*background:url("./img/mask_botton.png") 0 100% #37a125 no-repeat;*/
-  /*-webkit-background-size: 100%;*/
-  /*background-size: 100%;*/
-  transform: translate(-50%, -50%) scale(1, 1);
-
+/*  transform: translate(-50%, -50%) scale(1, 1);*/
   .content-body {
     /*font-size: 1.5em;*/
     position: relative;
-    /*height:2.1rem;*/
+
     font-size:0.12rem;
-    /*padding-top:0.26rem;*/
-    /*margin: 2em 1em;*/
-    /*line-height: 10em;*/
+
     color: #fff;
 
   }
   footer{
-    /*position: absolute;*/
+
     width: 100%;
-    /*height: 0.64rem;*/
-    /*left: 0;*/
-    /*bottom: 0;*/
-    /*background-color: red;*/
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -190,7 +116,7 @@ export default {
 
     &.cancel{
       color: RGBA(108, 83, 48, 1);
-      /*background-image: linear-gradient(to bottom,RGBA(226, 222, 210, 1),RGBA(179, 174, 158, 1));*/
+
 
     }
     &.sure{
@@ -209,21 +135,7 @@ export default {
   }
 
 }
-.msgbox-enter,
-.msgbox-leave-to {
-  -webkit-transform: translate(-50%, -50%) scale(0, 0);
-}
-.msgbox-enter-active,
-.msgbox-leave-active {
-  -webkit-transition: all 1.8s;
-  transition: all 1.8s;
-}
-.msgbox-enter-to,
-.msgbox-leave {
-  -webkit-transform: translate(-50%, -50%) scale(1, 1);
-}
-
-  .close-ico{
+.close-ico{
     position: absolute;
     display: inline-block;
     width: 0.16rem;
@@ -234,7 +146,6 @@ export default {
     -webkit-background-size: 100%;
     background-size: 100%;
   }
-
 .content-text{
   color: #00835C;
   font-size: 0.36rem;
@@ -247,12 +158,11 @@ export default {
   font-family:Cairo;
   /*margin-left:0.05rem;*/
 }
-  .tips-text{
+.tips-text{
     color: #727272;
     font-size:0.12rem;
     text-align: center;
     margin-top:0.1rem;
-  }
-
+}
 
 </style>

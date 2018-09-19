@@ -14,7 +14,7 @@
       </div>
       <div class="my-task">
         <div class="left">
-          <span class="task-num">{{current_num}}</span>
+          <span class="task-num">{{checkSteps}}</span>
           <span dir="rtl" class="task-label">أجزاء الهجوم الحالى:</span>
         </div>
         <div class="right">
@@ -25,99 +25,97 @@
 
       <!--然后是当前攻击的分身展示部分-->
       <div class="monster-tab">
-        <ul class="monster-list" v-if="personal">
+        <ul class="monster-list" >
           <li class="monster-item first-monster" :class="{active:num===1}" @click="choose(1)">
-            <img class="monster-ico" src="./images/baby1.png" v-if="current_num<1" alt="">
-            <img class="monster-ico" src="./images/baby1-active.png" v-if="current_num>=1" alt="">
+            <img class="monster-ico" src="./images/baby1.png" v-if="checkSteps<1" alt="">
+            <img class="monster-ico" src="./images/baby1-active.png" v-if="checkSteps>=1" alt="">
             <div class="monster-desc" v-if="num===1">
-
               <p dir="rtl" class="monster-desc-label">نسبة الدماء:</p>
               <p class="monster-desc-num">4000</p>
-              <div  v-if="num===current_num">
+              <div  v-if="num===checkSteps">
                 <p dir="rtl" class="monster-desc-label">الأجزاء المتضررة:</p>
-                <p dir="rtl" class="monster-desc-num">{{personal.my_task.injury_value}}</p>
+                <p dir="rtl" class="monster-desc-num">{{showDamage}}</p>
               </div>
-              <p v-if="num<current_num" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
+              <p v-if="num<checkSteps" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
             </div>
           </li>
-          <li class="monster-line" :class="{lineActive:current_num>=1}"></li>
+          <li class="monster-line" :class="{lineActive:checkSteps>=1}"></li>
           <li class="monster-item" :class="{active:num===2}" @click="choose(2)">
-            <img class="monster-ico" src="./images/baby2.png" v-if="current_num<2" alt="">
-            <img class="monster-ico" src="./images/baby2-active.png" v-if="current_num>=2" alt="">
+            <img class="monster-ico" src="./images/baby2.png" v-if="checkSteps<2" alt="">
+            <img class="monster-ico" src="./images/baby2-active.png" v-if="checkSteps>=2" alt="">
 
             <div class="monster-desc" v-if="num===2">
               <p dir="rtl" class="monster-desc-label">نسبة الدماء:</p>
               <p class="monster-desc-num">8000</p>
               <!--<p class="monster-desc-num">8000: <span dir="rtl" class="monster-desc-label">نسبة الدماء</span></p>-->
-              <div  v-if="num===current_num">
+              <div  v-if="num===checkSteps">
                 <p dir="rtl" class="monster-desc-label">الأجزاء المتضررة:</p>
-                <p dir="rtl" class="monster-desc-num">{{personal.my_task.injury_value}}</p>
+                <p dir="rtl" class="monster-desc-num">{{showDamage}}</p>
               </div>
         <!--      <p v-if="num===current_num" dir="rtl" class="monster-desc-num">{{personal.my_task.injury_value}} <span dir="rtl" class="monster-desc-label">الأجزاء المتضررة</span> </p>-->
-              <p v-if="num<current_num" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
+              <p v-if="num<checkSteps" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
             </div>
           </li>
-          <li class="monster-line" :class="{lineActive:current_num>=2}"></li>
+          <li class="monster-line" :class="{lineActive:checkSteps>=2}"></li>
           <li class="monster-item" :class="{active:num===3}" @click="choose(3)">
-            <img class="monster-ico" src="./images/baby3.png" v-if="current_num<3" alt="">
-            <img class="monster-ico" src="./images/baby3-active.png" v-if="current_num>=3" alt="">
+            <img class="monster-ico" src="./images/baby3.png" v-if="checkSteps<3" alt="">
+            <img class="monster-ico" src="./images/baby3-active.png" v-if="checkSteps>=3" alt="">
             <div class="monster-desc" v-if="num===3">
               <p dir="rtl" class="monster-desc-label">نسبة الدماء:</p>
               <p class="monster-desc-num">12000</p>
 
               <!--<p class="monster-desc-num">12000: <span dir="rtl" class="monster-desc-label">نسبة الدماء</span></p>-->
-              <div  v-if="num===current_num">
+              <div  v-if="num===checkSteps">
                 <p dir="rtl" class="monster-desc-label">الأجزاء المتضررة:</p>
-                <p dir="rtl" class="monster-desc-num">{{personal.my_task.injury_value}}</p>
+                <p dir="rtl" class="monster-desc-num">{{showDamage}}</p>
               </div>
              <!-- <p v-if="num===current_num" dir="rtl" class="monster-desc-num">{{personal.my_task.injury_value}} <span dir="rtl" class="monster-desc-label">الأجزاء المتضررة</span> </p>-->
-              <p v-if="num<current_num" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
+              <p v-if="num<checkSteps" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
             </div>
           </li>
-          <li class="monster-line" :class="{lineActive:current_num>=3}"></li>
+          <li class="monster-line" :class="{lineActive:checkSteps>=3}"></li>
           <li class="monster-item" :class="{active:num===4}" @click="choose(4)">
-            <img class="monster-ico" src="./images/baby4.png" v-if="current_num<4" alt="">
-            <img class="monster-ico" src="./images/baby4-active.png" v-if="current_num>=4" alt="">
+            <img class="monster-ico" src="./images/baby4.png" v-if="checkSteps<4" alt="">
+            <img class="monster-ico" src="./images/baby4-active.png" v-if="checkSteps>=4" alt="">
             <div class="monster-desc" v-if="num===4">
               <p dir="rtl" class="monster-desc-label">نسبة الدماء:</p>
               <p class="monster-desc-num">16000</p>
-              <div  v-if="num===current_num">
+              <div  v-if="num===checkSteps">
                 <p dir="rtl" class="monster-desc-label">الأجزاء المتضررة:</p>
-                <p dir="rtl" class="monster-desc-num">{{personal.my_task.injury_value}}</p>
+                <p dir="rtl" class="monster-desc-num">{{showDamage}}</p>
               </div>
-              <p v-if="num<current_num" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
+              <p v-if="num<checkSteps" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
             </div>
           </li>
-          <li class="monster-line" :class="{lineActive:current_num>=4}"></li>
-          <li class="monster-item last-monster" :class="{active:num===5}" @click="choose(5)">
-            <img class="monster-ico" src="./images/baby5.png" v-if="current_num<5" alt="">
-            <img class="monster-ico" src="./images/baby5-active.png" v-if="current_num>=5" alt="">
-            <div class="monster-desc" v-if="num===5">
+          <li class="monster-line" :class="{lineActive:checkSteps>=4}"></li>
+          <li class="monster-item last-monster" :class="{active:num>=5}" @click="choose(5)">
+            <img class="monster-ico" src="./images/baby5.png" v-if="checkSteps<5" alt="">
+            <img class="monster-ico" src="./images/baby5-active.png" v-if="checkSteps>=5" alt="">
+            <div class="monster-desc" v-if="num>=5">
               <p dir="rtl" class="monster-desc-label">نسبة الدماء:</p>
               <p class="monster-desc-num">20000</p>
-              <div  v-if="num===current_num">
+              <div v-if="num===checkSteps">
                 <p dir="rtl" class="monster-desc-label">الأجزاء المتضررة:</p>
-                <p dir="rtl" class="monster-desc-num">{{personal.my_task.injury_value}}</p>
+                <p dir="rtl" class="monster-desc-num">{{showDamage}}</p>
               </div>
-              <p v-if="num<current_num" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
+              <p v-if="num<checkSteps" dir="rtl" class="monster-desc-label">فشل الهجوم</p>
             </div>
           </li>
         </ul>
-        <ul class="monster-list monster-list-under" v-if="personal">
-          <li class="monster-item" :class="{active:num===1}">
-
+        <ul class="monster-list monster-list-under">
+          <li class="monster-item">
           </li>
-          <li class="monster-line" :class="{lineActive:current_num>=1}"></li>
-          <li class="monster-item" :class="{active:num===2}" >
+          <li class="monster-line" :class="{lineActive:checkSteps>=1}"></li>
+          <li class="monster-item">
           </li>
-          <li class="monster-line" :class="{lineActive:current_num>=2}"></li>
-          <li class="monster-item" :class="{active:num===3}" >
+          <li class="monster-line" :class="{lineActive:checkSteps>=2}"></li>
+          <li class="monster-item">
           </li>
-          <li class="monster-line" :class="{lineActive:current_num>=3}"></li>
-          <li class="monster-item" :class="{active:num===4}">
+          <li class="monster-line" :class="{lineActive:checkSteps>=3}"></li>
+          <li class="monster-item">
           </li>
-          <li class="monster-line" :class="{lineActive:current_num>=4}"></li>
-          <li class="monster-item" :class="{active:num===5}">
+          <li class="monster-line" :class="{lineActive:checkSteps>=4}"></li>
+          <li class="monster-item">
           </li>
         </ul>
       </div>
@@ -187,7 +185,7 @@
           <td>2018.09.23</td>
         </tr>
       </table>
-      <p class="award-tips" dir="">* ستصل الجائزة خلال 24 ساعة الى حسابك</p>
+      <p class="award-tips" dir="rtl">* ستصل الجائزة الى حسابك خلال 24 ساعة </p>
     </div>
 
   </div>
@@ -199,7 +197,9 @@
         personal:'',
         num:0,//当前被激活的选项编号
         current_num:0, //当前所攻击的编号
-        rank:20
+        rank:'',
+        myDamage:0, //这个就是总的伤害值
+        showDamage:0,//显示出来的伤害值，就是那个阶段的值
       }
     },
     methods:{
@@ -208,6 +208,7 @@
       },
       /*选择怪兽选项*/
       choose(index){
+//        console.log(index);//1-5
         this.num=index;
       },
       getPersonal(){
@@ -220,10 +221,173 @@
           console.log(err);
         })
 
-      }
+      },
+
+      /*获取冒号的地址*/
+      _getNum(str){
+        return str.indexOf(':')+1
+      },
+      /*获取当地时间*/
+      _getRealTime(ts){
+        let tt=new Date(ts).getTime()+10800000;
+        let dateServe=new Date(tt);
+        let UTCYear =dateServe.getUTCFullYear();  // 根据世界时从 Date 对象返回四位数的年份。
+        let UTCMonth = dateServe.getUTCMonth()+1; // 根据世界时从 Date 对象返回月份 (0 ~ 11)。
+        let UTCDate = dateServe.getUTCDate() // 根据世界时从 Date 对象返回月中的一天 (1 ~ 31)。
+        let time={"ts":`${UTCYear}-${UTCMonth}-${UTCDate}`}
+        return time;
+      },
+
+  /*2，获取主播奖励*/
+      getHostAward(){
+        this.getSummary('get-host-reward',1003303).then((res)=>{
+          console.log(res.data,'主播奖励');
+//          console.log(typeof res.data);
+          let arr=[];
+          let obj={};
+          var result=res.data;
+          result.forEach((val)=>{
+            let sp= val.split(',');
+//            console.log(sp);
+
+            let num1=this._getNum(sp[0])
+            let level1=sp[0].slice(num1);
+
+            let level={"level":level1}
+
+            let exp={"exp":sp[1].slice(3)}
+
+            let num2=this._getNum(sp[2]);
+            let ara=sp[2].slice(num2)
+            let avatar={"avatar":ara}
+
+            let num3=this._getNum(sp[3]);
+            let ts=sp[3].slice(num3)
+
+            let time=this._getRealTime(ts);
+            console.log(time,'++++++++++++++++++++++++++');
+            //把时间变成当地时间
+            /*let tt=new Date(ts).getTime()+10800000;
+            let dateServe=new Date(tt);
+            let UTCYear =dateServe.getUTCFullYear();  // 根据世界时从 Date 对象返回四位数的年份。
+             let UTCMonth = dateServe.getUTCMonth()+1; // 根据世界时从 Date 对象返回月份 (0 ~ 11)。
+            let UTCDate = dateServe.getUTCDate() // 根据世界时从 Date 对象返回月中的一天 (1 ~ 31)。
+            let time={"ts":`${UTCYear}-${UTCMonth}-${UTCDate}`}*/
+
+            obj=Object.assign(obj,level,exp,avatar,time);
+            console.log(obj);
+
+            arr.push(obj);
+          })
+          //把字符串分开了
+          console.log(arr);
+
+        }).catch((err)=>{
+          console.log(err);
+        })
+      },
+
+      /*2,用户抽奖奖品*/
+      getDrawRecord(){
+        this.getSummary('get-draw-reward').then((res)=>{
+//          console.log(res.data,'用户抽奖奖品');
+          let result=res.data;
+          let arr=[];
+          result.forEach((val)=>{
+            let sp= val.split(',');
+//            console.log(sp);
+            //遍历 出数组了，还需要更新时间
+            let sp1=sp[0];
+            let sp2=sp[1];
+            let time=this._getRealTime(sp2);
+            let obj={"award":sp1};
+            obj=Object.assign(obj,time);
+//            console.log(obj);
+            arr.push(obj);
+          })
+          console.log(arr,'合成的数组');
+          //数组需要过滤
+         let newArr =arr.filter((val,index)=>{
+            return val.award!=="Good luck next time";
+          })
+          console.log(newArr,'过滤的数组');
+
+
+        }).catch((err)=>{
+          console.log(err);
+        })
+      },
+      checkStepNum(damage){
+        if(damage<=0){
+          return 0
+        }else if(damage>0&&damage<=400){
+//           this.num=1
+          return 1
+
+          }else if(damage>400&&damage<=800){
+
+            return 2
+            //2
+          }else if(damage>800&&damage<=1200){
+
+            return 3
+            //3
+          }else if(damage>1200&&damage<=1600){
+
+            return 4
+            //4
+          }else if(damage>1600&&damage<2000){
+            return 5
+            //5
+          }else if(damage>=2000){
+          return 5
+          }
+        }
     },
     created(){
-      this.getPersonal();
+//      this.getPersonal();
+      this.getHostAward();
+      this.getDrawRecord();
+    },
+    computed:{
+      checkSteps(){
+        if(this.myDamage<=0){
+          this.showDamage=this.myDamage;
+          return 0
+        }else if(this.myDamage>0&&this.myDamage<=400){
+          this.showDamage=this.myDamage;
+          return 1
+          //1
+        }else if(this.myDamage>400&&this.myDamage<=800){
+          this.showDamage=this.myDamage-400;
+          return 2
+          //2
+        }else if(this.myDamage>800&&this.myDamage<=1200){
+          this.showDamage=this.myDamage-800;
+          return 3
+          //3
+        }else if(this.myDamage>1200&&this.myDamage<=1600){
+          this.showDamage=this.myDamage-1200;
+          return 4
+          //4
+        }else if(this.myDamage>1600&&this.myDamage<2000){
+          this.showDamage=this.myDamage-1600;
+          return 5
+          //5
+        }else if(this.myDamage>=2000){
+          this.showDamage=this.myDamage-2000
+          return 6
+        }
+      }
+    },
+    mounted(){
+      console.log(this.$route.params);
+      this.rank=this.$route.params.rank;
+//      this.myDamage=this.$route.params.myDamage;
+//      this.num=this.$route.params.myDamage;
+      this.num=this.checkStepNum(this.$route.params.myDamage);
+      this.myDamage=this.$route.params.myDamage;
+
     }
   }
 
@@ -313,7 +477,7 @@
       .monster-item{
         position: relative;
         width: 0.5rem;
-        height:0.42rem;
+        height:0.47rem;
         .monster-desc{
           position: absolute;
           width: 1rem;
@@ -343,7 +507,7 @@
         }
       }
 
-  /*    .first-monster{
+      .first-monster{
         .monster-desc-num{
           text-align: right;
         }
@@ -360,7 +524,7 @@
 
           text-align: left;
         }
-      }*/
+      }
 
       .monster-line{
         flex: 1;

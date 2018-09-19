@@ -4,20 +4,20 @@
 
       <div class="header-title">
         <img src="./images/title.png" alt="">
-        <p dir="rtl" class="title-time"> ميعاد المسابقة : 18-9-2018 حتى 02-10-2018 </p>
+        <p dir="rtl" class="title-time"> ميعاد المسابقة : 20-9-2018 حتى 07-10-2018 </p>
       </div>
       <!--怪兽展示以及四个礼物展示-->
       <div class="monster-wrap">
-        <div class="knife" @click="showsheet(1)">
+        <div class="knife" @click="showsheet(1,lockStatus)">
           <img src="./images/knife.png" alt="">
           <img class="star2" src="./images/star2.png" alt="">
         </div>
-        <div class="arrow"  @click="showsheet(2)">
+        <div class="arrow"  @click="showsheet(2,lockStatus)">
           <img src="./images/arrow.png" alt="">
           <img class="star1" src="./images/star1.png" alt="">
         </div>
-        <img src="./images/cannon.png" class="cannon" alt=""  @click="showsheet(3)">
-        <img src="./images/bomb.png" class="bomb" alt=""  @click="showsheet(4)">
+        <img src="./images/cannon.png" class="cannon" alt=""  @click="showsheet(3,lockStatus)">
+        <img src="./images/bomb.png" class="bomb" alt=""  @click="showsheet(4,lockStatus)">
 
         <div class="monster1 monster" v-if="myProgress<20">
           <img src="./images/monster1.png" alt="">
@@ -33,8 +33,6 @@
         </div>
 
       </div>
-
-
       <!--承受的伤害进度条-->
       <p dir="rtl" class="progress-title">إصابات الوحش</p>
 
@@ -57,12 +55,12 @@
       </div>
 
       <!--领奖按钮-->
-      <button v-if="summary&&summary.my_info.award_chance>0" class="go-reward" @click="receiveReward" dir="rtl">انقر للحصول على الجائزة
+      <button  class="go-reward" @click="receiveReward(1)" dir="rtl">انقر للحصول على الجائزة
       </button>
     </div>
 
     <!--测试invader-->
-    <div style="width: 300px;height: 300px; font-size: 28px;">
+  <!--  <div style="width: 300px;height: 300px; font-size: 28px;">
       <a href="https://play.google.com/store/apps/details?id=org.cocos2dx.newInvader&referrer=utm_source%3Dloops_invader_2018%26utm_medium%3Dbanner">安卓</a>
       <br>
       <a href="https://itunes.apple.com/app/apple-store/id828823376?pt=346993&ct=loops_invader_2018&mt=8">ios</a>
@@ -71,8 +69,7 @@
       <br>
       <p @click="openBroser">打开系统自带浏览器</p>
 
-    </div>
-
+    </div>-->
 
     <!--规则按钮-->
     <div class="rule-btn" @click="showRule"></div>
@@ -91,36 +88,36 @@
 
         <ul class="board-list" v-if="board.length>0">
           <li class="list-item" v-for="(item,index) in board" v-if="index<limitNum">
-            <div class="rank">{{item.rank}}</div>
-            <div class="current-monster" :style="{backgroundImage:monsterBabyUrl[item.current_hunt_num-1]}">
-              <img class="complete-ico" src="./images/complete-ico.png" alt="">
+            <div class="rank">{{index+1}}</div>
+            <div class="current-monster" :style="{backgroundImage:monsterBabyUrl[beatSteps[index]]}">
+            <!--<div class="current-monster" v-if="beatSteps.length>0" :style="{backgroundImage:monsterBabyUrl[5]}">-->
+              <img class="complete-ico" src="./images/complete-ico.png" alt="" v-if="beatSteps[index]>=5">
             </div>
             <div class="host-info">
               <div class="host">
-                <img class="host-avatar" :src="item.host.avatar" alt="" :class="{topRank:index<=2}">
-                <!--<div class="live-modal" v-if="liveArr.length>0&&liveArr[index].live_on">-->
-                <div class="live-modal">
+                <img class="host-avatar" :src="item.avatar" @click="openProfile(item.user_id)" alt="" :class="{topRank:index<=2}">
+                <div class="live-modal" v-if="item.live_on" @click="goLiveVideo(item.user_id,item.live_session_id)">
+                <!--<div class="live-modal">-->
                   <!--<p>{{liveArr[index].live_session_id}}</p>-->
                   <img class="live-ico" src="./images/live.png" alt="">
                 </div>
                 <!--<div class="my-name">{{item.host.name}}</div>-->
               </div>
               <div class="members">
-                <p class="host-name">{{item.host.name}}</p>
+                <p class="host-name">{{item.name}}</p>
                 <!--<p class="host-attck" dir="rtl">الترتيب</p>-->
-                <!--<p class="host-attck" dir="rtl">{{item.host.attck}}</p>-->
-                <div class="host-attck"><span>{{item.host.attck}}</span><span dir="rtl">الترتيب:</span></div>
-                <div class="member-list">
-                  <div class="member-item" v-for="(val,index) in item.members">
+                <!--<p class="host-attck" dir="rtl">{{hostRankList[index].damages}}</p>-->
+                <div class="host-attck"><span>{{hostRankList[index].damages}}</span><span dir="rtl">الترتيب:</span></div>
+                <!--<div class="member-list" v-if="userList.length>0">
+                  <div class="member-item" v-for="(val,inx) in userList[index]">
                     <img class="member-avatar" :src="val.avatar" alt="">
-                    <span class="member-rank">{{index+1}}</span>
+                    <span class="member-rank">{{inx+1}}</span>
                   </div>
-                </div>
+                </div>-->
 
 
               </div>
             </div>
-
           </li>
         </ul>
 
@@ -133,11 +130,11 @@
     <div class="footer" v-if="summary">
       <div class="my-rank">
         <p dir="rtl" class="rank-title">الترتيب الحالي</p>
-        <p class="rank-num">{{summary.my_info.my_rank}}</p>
+        <p class="rank-num">{{checkMyRank}}</p>
       </div>
       <div class="my-avatar">
-        <img :src="summary.my_info.avatar" alt="">
-        <p class="my-name" dir="rtl"> صفحتي الرئيسيةصفحتي</p>
+        <img :src="summary[0].avatar" alt="">
+        <p class="my-name" dir="rtl">{{summary[0].name}}</p>
       </div>
       <div class="my-info" >
         <button class="info-btn" @click="myInfo">صفحتي الرئيسية</button>
@@ -147,13 +144,17 @@
     </div>
 
     <!--礼物详情弹窗-->
-    <div class="modal"  v-if="showBefore" @touchmove.prevent>
+
+    <div class="modal"  v-show="showBefore" @touchmove.prevent>
       <!--<div class="modal" @touchmove="touch">-->
-     <div class="giftWrap">
+      <transition name="bounce">
+     <div class="giftWrap" v-if="showBefore" >
        <button @click="closeBeforeWinner" class="close-ico"></button>
-       <Gift :giftNum="giftNum"  :isDeBlock="summary.unlock"></Gift>
+       <Gift :giftNum="giftNum"   :isDeBlock="lockStatus"></Gift>
      </div>
+      </transition>
     </div>
+
 
     <!--规则弹窗-->
     <div class="modal" v-show="isShowRule">
@@ -179,40 +180,67 @@
       return{
         limitNum:5,//榜单默认显示5条
         more:false,//是否加载更多
-        showBefore:false,//是否显示往期历史弹窗
+        showBefore:false,//是否显示礼物弹窗
         isShowRule:false,//是否显示规则弹窗
         giftNum:0,//礼物的编号
         isDeBlock:true,//是否解锁
         isShowPersonal:false,//是否显示个人中心弹窗
         isShowReward:false,//是否显示战利品弹窗
         myProgress:0,//进度条进度
+        totalDamage:'',//总的伤害值
         summary:'',//基本信息
-        board:[], //主播帮单
-        liveArr:[], //直播状态
-        progressNum:0, //这个就是定义过渡的时间
-        monsterBabyUrl: ["url(" + require("./images/monster-baby1.png") + ")","url(" + require("./images/monster-baby2.png") + ")","url(" + require("./images/monster-baby3.png") + ")","url(" + require("./images/monster-baby4.png") + ")","url(" + require("./images/monster-baby5.png") + ")"],
-        num:1
+        board:[], //主播帮单，就是bulkquery查出来的内容
+        hostRankList:[],//主播id以及伤害值榜
+        userList:[], //这个就是前三名用户总榜
+        total:[],//测试的total数组
+        lockStatus:0,//默认我0，1是解锁炸弹，2是解锁大炮
+        myRank:0,//我的排名
+        beatSteps:[],//攻打怪兽的分身的阶段
+        myDamage:0,//我的伤害值，默认是0
 
+
+        progressNum:0, //这个就是定义过渡的时间
+        monsterBabyUrl: ["url(" + require("./images/monster-baby1.png") + ")",
+          "url(" + require("./images/monster-baby2.png") + ")",
+          "url(" + require("./images/monster-baby3.png") + ")",
+          "url(" + require("./images/monster-baby4.png") + ")",
+          "url(" + require("./images/monster-baby5.png") + ")",
+          "url(" + require("./images/monster-baby5.png") + ")"
+        ],
+        num:1
 
       }
     },
     methods:{
 
-      opStore(){
-
-        this.openAppStore();
+      //跳转个人直播间
+      goLiveVideo(cid,sid){
+        this.openVideo(cid,sid);
       },
 
-      openBroser(){
-        this.openSystemBrowser();
+      /*跳转个人主页*/
+      openProfile(uid) {
+        this.openChannelprofile(uid);
+        //埋点
+        this._di({
+          page: "monster-hunter",
+          title: "monster-hunter",
+          button_name: "monster-hunter-goProfileBtn",//跳转个人主页按钮
+//          host_id: uid //被点击人的id
+        })
       },
 
       /*点击显示规则弹窗按*/
       showRule(){
         this.isShowRule = true;
         ModalHelper.afterOpen();
+        this._di({
+          page: "monster-hunter",
+          title: "monster-hunter",
+          button_name: "monster-hunter-ruleBtn",//规则按钮埋点
+//          host_id: this.userId //用户id
+        })
       },
-
       /*关闭规则按钮*/
       closeRule(){
         ModalHelper.beforeClose();
@@ -220,27 +248,25 @@
       },
 
       //显示不同的宝刀说明
-      showsheet(flag){
-
-
+      showsheet(flag,lockStatus=0){
         this.showBefore=true;
         switch (flag){
           case 1:
             this.giftNum=1;
-            this.isDeBlock=true;
+            this.lockStatus=0;
             break;
           case 2:
             this.giftNum=2;
-            this.isDeBlock=true;
+            this.lockStatus=0;
             break;
           case 3:
             this.giftNum=3;
             //需要判断解锁没有
-            this.isDeBlock=false;
+            this.lockStatus=lockStatus;
             break;
           case 4:
             this.giftNum=4;
-            this.isDeBlock=true;
+            this.lockStatus=lockStatus;
             break;
         }
 
@@ -253,8 +279,17 @@
       /*点击显示我的个人中心*/
       myInfo(){
         this.isShowPersonal=true;
-        this.$router.push('personal')
+//        this.$router.push('personal')
+        this.$router.push({name:'personal',params: { rank:this.checkMyRank,myDamage:this.myDamage}})
         ModalHelper.afterOpen();
+        //埋点
+        this._di({
+          page: "monster-hunter",
+          title: "monster-hunter",
+          button_name: "monster-hunter-personalBtn",//个人中心按钮埋点
+//          host_id: this.userId //用户id
+        })
+
       },
 
       /*关闭个人中心弹窗*/
@@ -264,12 +299,12 @@
         this.$router.go(-1);
       },
       //获取基本信息
-      getSummary(){
+    /*  getSummary(){
         this.testMock('summary').then((res)=>{
           console.log(res.data,'summary');
           this.summary=res.data;
           this.myProgress=10;
-          /*根据具体的数值设置过渡时间*/
+          /!*根据具体的数值设置过渡时间*!/
           if(this.myProgress<=50){
             this.progressNum=1
           }else if(this.myProgress>50&&this.myProgress<=75){
@@ -285,10 +320,29 @@
           console.log(err);
         })
 
-      },
+      },*/
+    async getMyInfo(){
+      try{
+        //拿到自己的id，并且查询，得到名字和头像
+        let myId=this.getUrlParams('userId');
+        console.log(myId,'wo de id');
+        //然后根据这个
+        let data={
+          'user_ids': myId
+        };
+        let myInfo=await this.bulkD({'user_ids':[myId]});
+//        let myInfo=await this.bulkD(data);
+
+        console.log(myInfo.data,'我的个人信息');
+        this.summary=myInfo.data;
+        //除了头像和名字，还有伤害值
+      }catch(err){
+        console.log(err);
+      }
+    },
 
       //获取榜单数据
-     getBoard(){
+  /*   getBoard(){
         this.testMock('borad').then((res)=>{
 
           this.board=res.data.board;
@@ -310,37 +364,52 @@
           console.log(err);
         })
 
-      },
+      },*/
 
       //查询接口调用
       bulk(data){
         this.bulkQuery('bulk_query',data).then((res)=>{
           console.log(res.data,'查询接口');
+          //拿到了查询的数据，可以知道名字，头像以及live状态
 
          this.liveArr=res.data;
-
-
-
         }).catch((err)=>{
           console.log(err);})
       },
 
+      /*批量查询主播状态*/
+      async bulkD(data){
+           return this.bulkQuery('bulk_query',data);
+        },
+
+      /*查询主播列表*/
+      async getList(){
+        return this.getSummary('get-host-ranking');
+      },
+
+      /*3，查询前三名用户*/
+      async getUserRank(id){
+        return  this.getSummary('get-user-ranking',id);
+      },
+
+
       /*点击领取奖励*/
-      receiveReward(){
+      async receiveReward(groupid){
         console.log(111);
-//        this.isShowReward=false;
+//        需要先查询抽奖结果
+        let rewardRes =await  this.goDraw(groupid);
+        console.log(rewardRes.data,'抽奖结果');
+
         //弹出奖励提示框
         this.$msgbox({
             confirm:'تأكيد\n',
-            content:'50',
-        }).then((res)=>{
-          console.log(res);
-        }).catch((err)=>{
-          console.log(err);
+            content:rewardRes.data,
+        }).then(()=>{
+          console.log('确认');
+        }).catch(()=>{
+          console.log('取消');
         })
-
       },
-
       /*点击更多按钮*/
       moreBtn(){
       this.limitNum=this.board.length;
@@ -350,22 +419,202 @@
       }
 
       },
-    },
-    created(){
-      this.getSummary();
-      this.getBoard();
+      //接口部分
+
+      /*1，获取主播列表*/
+     async getHostRank(){
+       try{
+         //1,获取到主播id和伤害值
+         let host=await this.getList();
+         var hostRankList=host.data;
+         this.hostRankList=hostRankList;
+         console.log(hostRankList,'主播的id列表啊');
+         //2,分离出id
+         let IdList=[];
+         let damageList=[];
+         hostRankList.forEach((val,index)=>{
+           IdList.push(val.playerId);
+           damageList.push(val.damages);
+         })
+
+         console.log(damageList,'伤害榜');
+         let newDamage=damageList.map((val,index)=>{
+           if(val<=400){
+             return 0
+             //1
+           }else if(val>400&&val<=800){
+             return 1
+             //2
+           }else if(val>800&&val<=1200){
+             return 2
+             //3
+           }else if(val>1200&&val<=1600){
+             return 3
+             //4
+           }else if(val>1600&&val<2000){
+             return 4
+             //5
+           }else if(val>=2000){
+            return 5
+           }
+         })
+         console.log(newDamage,'新的数组');
+         this.beatSteps=newDamage;//给伤害榜赋值
+
+         //已经分离出主播id了，看自己的id在不在里面
+         let myId=Number(this.getUrlParams('userId'));//是字符串
+         console.log(IdList,myId,'用户分离出的id');
+         let myRank=IdList.indexOf(myId);
+         if(myRank>=0){
+           //表示在列表里面，那么需要知道它的伤害值
+           this.myDamage=damageList[myRank];//传递过去的就是阶段值
+
+         }
+
+         this.myRank=myRank;//这就是我的排名了
+
+
+
+         console.log(myRank,'我在不在里面啊');
+
+         //3,通过bulkquery查询
+         let data={
+           'user_ids': IdList
+         }
+         let bulkList=await this.bulkD(data);
+         console.log(bulkList.data,'查询的结果啊');
+         this.board=bulkList.data;
+         //4，查询每个主播的前三名用户，这里需要循环查询
+
+         let totalList=[];//定义好总的空数组
+         //关键是这个异步的结果我怎么拿到
+         IdList.forEach(async (val,index)=>{
+           let users=await this.getUserRank(val);
+         })
+
+//         console.log(totalList,'总的用户');
+
+       }catch(err){
+         console.log(err);
+       }
+      },
+      /*3,观众伤害排名*/
+     /* getUserRank(){
+        this.getSummary('get-user-ranking',1003303).then((res)=>{
+          console.log(res.data,'观众列表');
+        }).catch((err)=>{
+          console.log(err);
+        })
+      },*/
+
+      /*4,查询当前总伤害*/
+      getAllDamage(){
+        this.getSummary('get-all-damage').then((res)=>{
+          console.log(res.data,'总伤害值');
+          this.totalDamage=res.data;
+          //根据伤害值计算进度以及解锁与否
+
+
+          let range=this.totalDamage>=10000000?100:parseInt(this.totalDamage/10000000*100);
+          console.log(range,'百分比');
+          //通过百分比来计算具体进入，需要去整数
+
+          this.myProgress=range;
+          /*根据具体的数值设置过渡时间*/
+          if(this.myProgress<=50){
+            this.progressNum=1
+          }else if(this.myProgress>50&&this.myProgress<=75){
+            //炸弹解锁
+            this.lockStatus=1;
+            this.progressNum=1.5;
+          }else if(this.myProgress>75){
+            //大炮解锁
+            this.lockStatus=2;
+            this.progressNum=2;
+          }
+
+
+        }).catch((err)=>{
+          console.log(err);
+        })
+      },
+
+      /*5,用户抽奖奖品*/
+      getDrawRecord(){
+        this.getSummary('get-draw-reward').then((res)=>{
+          console.log(res.data,'用户抽奖奖品');
+        }).catch((err)=>{
+          console.log(err);
+        })
+      },
+
+      /*6,抽奖接口*/
+
+      async goDraw(groupid){
+        return this.draw('draw',groupid)
+       /* this.draw('draw',1).then((res)=>{
+          console.log(res.data,'抽奖结果');
+        }).catch(err=>{
+          console.log(err);
+        })*/
+      }
+
+
     },
     computed:{
-
+      checkMyRank(){
+        if(this.myRank<0){
+          return 'out of 50'
+        }else {
+          return this.myRank+1
+        }
+      },
+      /*检查攻打的哪个阶段*/
     },
 
+    /*过滤器*/
+    filters:{
+      checkBeatNum(damage){
+        if(damage<=400){
+          return 1
+          //1
+        }else if(damage>400&&damage<=800){
+          return 2
+          //2
+        }else if(damage>800&&damage<=1200){
+          return 3
+          //3
+        }else if(damage>1200&&damage<=1600){
+          return 4
+          //4
+        }else if(damage>1600&&damage<2000){
+          return 5
+          //5
+        }else if(damage>=2000){
+
+          //结束
+        }
+
+      }
+    },
+
+    created(){
+//      this.getSummary();
+//      this.getBoard();
+      this.getHostRank();
+//      this.getHostAward();
+//      this.getUserRank();
+      this.getAllDamage();
+//      this.getDrawRecord();
+//      this.goDraw();
+      this.getMyInfo();
+
+    },
     components:{
       List,
       ruleEl,
       Gift,
       personalCenter
-    },
-    mounted(){
     }
   }
 
@@ -724,6 +973,8 @@
             position: relative;
             width: 0.6rem;
             height: 0.6rem;
+            border-radius: 50%;
+            background-color: #8d410f;
             .host-avatar{
               width: 0.6rem;
               height: 0.6rem;
@@ -966,6 +1217,17 @@
   border-radius: 50%;
 }
 
+  .bounce-enter-active {
+    animation: bounce-in .5s;
+  }
 
+  @keyframes bounce-in {
+    0% {
+      transform: scale(0.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 
 </style>

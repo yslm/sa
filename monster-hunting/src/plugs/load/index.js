@@ -9,6 +9,7 @@ export default {
   install(Vue, pluginOptions = {}) {
     // 创建"子类"方便挂载
     const VueLoading = Vue.extend(Loading)
+    console.log(VueLoading,new VueLoading(),'loading插件');
     let loading = null
 
     /**

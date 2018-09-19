@@ -25,10 +25,10 @@ Vue.use(VueLoading);
 // Vue.use(dialog);
 
 /*引入全局过滤器*/
-Vue.filter('clipPic', function (url) {
+Vue.filter('clipPic', function (url,num) {
 
   if(url&&url.indexOf('wangsu-image.rings.tv')!==-1){
-    return url+'?w=80'
+    return url+'?w='+num  //num一般去80
   }else {
     return url;
   }

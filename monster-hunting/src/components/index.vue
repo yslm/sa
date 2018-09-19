@@ -95,7 +95,7 @@
             </div>
             <div class="host-info">
               <div class="host">
-                <img class="host-avatar" :src="item.avatar" @click="openProfile(item.user_id)" alt="" :class="{topRank:index<=2}">
+                <img class="host-avatar" :src="item.avatar|clipPic(item.avatar,80)" @click="openProfile(item.user_id)" alt="" :class="{topRank:index<=2}">
                 <div class="live-modal" v-if="item.live_on" @click="goLiveVideo(item.user_id,item.live_session_id)">
                 <!--<div class="live-modal">-->
                   <!--<p>{{liveArr[index].live_session_id}}</p>-->
@@ -108,13 +108,12 @@
                 <!--<p class="host-attck" dir="rtl">الترتيب</p>-->
                 <!--<p class="host-attck" dir="rtl">{{hostRankList[index].damages}}</p>-->
                 <div class="host-attck"><span>{{hostRankList[index].damages}}</span><span dir="rtl">الترتيب:</span></div>
-                <!--<div class="member-list" v-if="userList.length>0">
+                <div class="member-list" v-if="userList.length>0">
                   <div class="member-item" v-for="(val,inx) in userList[index]">
-                    <img class="member-avatar" :src="val.avatar" alt="">
+                    <img class="member-avatar" :src="val.avatar|clipPic(val.avatar,60)" alt="">
                     <span class="member-rank">{{inx+1}}</span>
                   </div>
-                </div>-->
-
+                </div>
 
               </div>
             </div>
@@ -123,9 +122,9 @@
 
       </div>
     </div>
-    <div class="more" @click="moreBtn" :class="{closeup:more}">
+    <button class="more" :disabled="board.length<5" @click="moreBtn" :class="{closeup:more}">
       <img src="./images/more.png" alt="">
-    </div>
+    </button>
 
     <div class="footer" v-if="summary">
       <div class="my-rank">
@@ -133,14 +132,13 @@
         <p class="rank-num">{{checkMyRank}}</p>
       </div>
       <div class="my-avatar">
-        <img :src="summary[0].avatar" alt="">
+        <img :src="summary[0].avatar|clipPic(summary[0].avatar,80)" alt="">
         <p class="my-name" dir="rtl">{{summary[0].name}}</p>
       </div>
       <div class="my-info" >
         <button class="info-btn" @click="myInfo">صفحتي الرئيسية</button>
       </div>
       <!--<router-link to="/personal">个人中心</router-link>-->
-
     </div>
 
     <!--礼物详情弹窗-->
@@ -185,18 +183,20 @@
         giftNum:0,//礼物的编号
         isDeBlock:true,//是否解锁
         isShowPersonal:false,//是否显示个人中心弹窗
-        isShowReward:false,//是否显示战利品弹窗
+
         myProgress:0,//进度条进度
         totalDamage:'',//总的伤害值
         summary:'',//基本信息
         board:[], //主播帮单，就是bulkquery查出来的内容
         hostRankList:[],//主播id以及伤害值榜
         userList:[], //这个就是前三名用户总榜
-        total:[],//测试的total数组
+
         lockStatus:0,//默认我0，1是解锁炸弹，2是解锁大炮
         myRank:0,//我的排名
         beatSteps:[],//攻打怪兽的分身的阶段
         myDamage:0,//我的伤害值，默认是0
+
+        totalList:[],//这个就是查询到了每个家族里面前三名的总数组，这里面还需要分离出来id去查询头像
 
 
         progressNum:0, //这个就是定义过渡的时间
@@ -335,7 +335,7 @@
 
         console.log(myInfo.data,'我的个人信息');
         this.summary=myInfo.data;
-        //除了头像和名字，还有伤害值
+        //除了头像和名字，还有伤害值,伤害值可以到下面的方法中去查询，如果没有就是0
       }catch(err){
         console.log(err);
       }
@@ -366,13 +366,26 @@
 
       },*/
 
-      //查询接口调用
+      //查询接口调用，这个方法专门针对组员的查询
       bulk(data){
         this.bulkQuery('bulk_query',data).then((res)=>{
-          console.log(res.data,'查询接口');
-          //拿到了查询的数据，可以知道名字，头像以及live状态
+          console.log(res.data,'查询接口------------------');
+          let allMember=res.data;
+          //拿到了查询的数据，还需要包装一下，成为之前查询到的格式
+          console.log(this.totalList,'原数组---------------');
+          let userList=[];//前三名用户表
 
-         this.liveArr=res.data;
+          this.totalList.forEach((val)=>{
+            let length=val.length;
+            //然后按照长度切割
+            userList.push (allMember.splice(0,length))
+          })
+
+          this.userList=userList;
+          console.log(userList,'***********************************');
+
+
+          this.liveArr=res.data;
         }).catch((err)=>{
           console.log(err);})
       },
@@ -429,15 +442,16 @@
          var hostRankList=host.data;
          this.hostRankList=hostRankList;
          console.log(hostRankList,'主播的id列表啊');
-         //2,分离出id
+         //2,分离出id和伤害值列表
          let IdList=[];
          let damageList=[];
          hostRankList.forEach((val,index)=>{
            IdList.push(val.playerId);
            damageList.push(val.damages);
-         })
+         });
 
          console.log(damageList,'伤害榜');
+         //根据伤害值计算出当前所处的阶段
          let newDamage=damageList.map((val,index)=>{
            if(val<=400){
              return 0
@@ -462,22 +476,20 @@
          this.beatSteps=newDamage;//给伤害榜赋值
 
          //已经分离出主播id了，看自己的id在不在里面
-         let myId=Number(this.getUrlParams('userId'));//是字符串
+         //这里主要就是获取排名和伤害值，为个人中心准备数据
+         let myId=Number(this.getUrlParams('userId'));//是字符串，所以需要Number()转换一下
          console.log(IdList,myId,'用户分离出的id');
          let myRank=IdList.indexOf(myId);
          if(myRank>=0){
            //表示在列表里面，那么需要知道它的伤害值
            this.myDamage=damageList[myRank];//传递过去的就是阶段值
-
          }
 
          this.myRank=myRank;//这就是我的排名了
 
-
-
          console.log(myRank,'我在不在里面啊');
 
-         //3,通过bulkquery查询
+         //3,通过bulkquery查询主播的头像，姓名以及直播状态
          let data={
            'user_ids': IdList
          }
@@ -488,11 +500,41 @@
 
          let totalList=[];//定义好总的空数组
          //关键是这个异步的结果我怎么拿到
-         IdList.forEach(async (val,index)=>{
-           let users=await this.getUserRank(val);
-         })
+         var self=this;
 
-//         console.log(totalList,'总的用户');
+         (async function loop(index) {
+           let users=await self.getUserRank(IdList[index]);
+           if (++index<IdList.length) {
+             loop(index);
+             totalList.push(users.data)
+           } else {
+             console.log("全部执行完毕");
+             console.log(totalList,'总的用户');
+             self.totalList=totalList;//将原数组记录下来
+             //还需要查询一次
+             //需要将数组打开，然后分离出id，然后查询，然后在重组
+             let newTotal=[];  //这个是展开之后的数组
+             totalList.forEach((val)=>{
+               console.log(typeof val);
+               val.forEach((v)=>{
+                 newTotal.push(v.playerId);
+               })
+             })
+             console.log(newTotal,'抹平之后的结果');
+             //然后调用bulk接口再去查头像
+             let data={
+               'user_ids': newTotal
+             }
+             self.bulk(data);
+           }
+
+         })(0);
+
+           /*IdList.forEach(async (val,index)=>{
+             let users=await this.getUserRank(val);
+           })*/
+
+
 
        }catch(err){
          console.log(err);
@@ -1096,8 +1138,9 @@
   .more{
     width: 0.41rem;
     height:0.21rem;
-    margin:0.1rem auto 2rem;
+    margin:0.1rem auto 1rem;
     transition: transform .3s linear;
+    background-color: transparent;
     /*margin-bottom: 2rem;*/
     &>img{
       width: 0.41rem;
@@ -1144,6 +1187,8 @@
      /*position: absolute;*/
      width: 1rem;
      height: 0.6rem;
+     /*border-radius: 50%;*/
+     /*background-color: #913c0c;*/
      &>img{
        position: absolute;
        width: 0.64rem;
@@ -1153,6 +1198,7 @@
        left: 50%;
        margin-left:-0.32rem;
        top: -0.25rem;
+       background-color: #913c0c;
      }
      .my-name{
        margin-top:0.38rem;
